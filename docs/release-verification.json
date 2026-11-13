@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-11-13T17:36:23.336070+00:00",
+  "tests": {
+    "backend": "10 passed",
+    "javascript": "node --check passed",
+    "artifact_restore": "103 data/experiment files and selected v2 adapter downloaded at pinned public commits and SHA-256 verified",
+    "archive_guards": "changed file and traversal rejected",
+    "training_preflight": {
+      "complete_rows": 2040,
+      "maximum_tokens": 7700,
+      "training_steps_configured": 1020,
+      "optimizer_steps_executed": 0
+    },
+    "auditkit": "all four arms exact format/label/joint parity; zero scoring errors",
+    "asset_rebuild": "4 source-only examples,17 statements,306 saved comparisons"
+  },
+  "limits": [
+    "Existing Ubuntu Python environment and cached upstream tokenizer used for preflight; clean-machine install not tested.",
+    "No additional training, model inference or semantic AI review in release verification."
+  ]
+}

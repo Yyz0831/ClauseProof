@@ -1,0 +1,15 @@
+diff --git a/src/aligntune/core/sft/config.py b/src/aligntune/core/sft/config.py
+index d216900..ad7b5f6 100644
+--- a/src/aligntune/core/sft/config.py
++++ b/src/aligntune/core/sft/config.py
+@@ -327,8 +327,8 @@ class TrainingConfig:
+         if self.packing_strategy not in {"bfd", "wrapped"}:
+             raise ValueError("packing_strategy must be 'bfd' or 'wrapped'")
+ 
+-        if self.loss_type not in {"nll", "dft"}:
+-            raise ValueError("loss_type must be 'nll' or 'dft'")
++        if self.loss_type not in {"nll", "dft", "chunked_nll"}:
++            raise ValueError("loss_type must be 'nll', 'dft', or 'chunked_nll'")
+ 
+ 
+ @dataclass

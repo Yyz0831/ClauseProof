@@ -1,0 +1,21 @@
+{
+  "CuratorKIT": {
+    "repository": "https://github.com/Lexsi-Labs/CuratorKIT",
+    "commit": "dd9e835301fcddc74a37501d9e207a5a060d209f"
+  },
+  "aligntune": {
+    "repository": "https://github.com/Lexsi-Labs/aligntune",
+    "commit": "c3d648f335ac8cece6f9105c13e0f2b2b8f46077",
+    "local_patches": [
+      {
+        "path": "patches/aligntune-chunked-nll.patch",
+        "sha256": "cfab44a9c909b66f1107298512bcc1e6a31e3e8f443e165cccadab01109c119e",
+        "reason": "Allow TRL 1.7.1 chunked_nll loss in AlignTune configuration validation."
+      }
+    ]
+  },
+  "AuditKIT": {
+    "repository": "https://github.com/Lexsi-Labs/AuditKIT",
+    "commit": "71316da345784ff220d5ed59337441a59ab31526"
+  }
+}

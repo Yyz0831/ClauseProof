@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "trl_native_activation_offloading",
+  "activation_offloading": true,
+  "parameter_offload": false,
+  "preserve_parameter_dtypes": true,
+  "preserve_activation_dtypes": true,
+  "dtype_preservation_baseline": "Unmodified TRL QLoRA flow: prepared LoRA FP32, trainer converts trainable LoRA to BF16; frozen tied embedding/head and norms remain FP32.",
+  "gradient_checkpointing_kwargs": {
+    "use_reentrant": false
+  },
+  "chunked_lm_head_chunk_size": 256,
+  "native_defaults": {
+    "use_pin_memory": true,
+    "use_streams": true,
+    "min_tensor_size_bytes": 1024,
+    "max_fwd_stash_size": 5
+  },
+  "original_trainer_sha256": "8d33c67d50b337185a34ec75836e868d8bd58faf3d48ee98fc0205ce7be35392",
+  "original_data_protocol_sha256": "0bd668169836a54c13398c9fa6c5af6854811f0dfd4b8b29e03bfaf6465a97af",
+  "reason": "Reuse validated activation offloading for an independent ContractNLI pilot."
+}

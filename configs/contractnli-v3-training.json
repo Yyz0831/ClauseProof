@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "experiment": "contractnli-v3-sft",
+  "arm": "expanse8b_contractnli_v3_4bit",
+  "examples": 2040,
+  "base_model": {
+    "model_id": "CohereLabs/aya-expanse-8b",
+    "revision": "5062468bf9bc0c6035fd64e06274333ec127d980",
+    "dtype": "bfloat16",
+    "attention_implementation": "sdpa",
+    "max_total_tokens": 8192,
+    "max_new_tokens": 256,
+    "do_sample": false,
+    "seed": 42
+  },
+  "quantization": {
+    "load_in_4bit": true,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_use_double_quant": true,
+    "bnb_4bit_compute_dtype": "bfloat16"
+  },
+  "lora": {
+    "r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "bias": "none",
+    "task_type": "CAUSAL_LM",
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ]
+  },
+  "training": {
+    "max_sequence_tokens": 8192,
+    "max_steps": 1020,
+    "epochs": 1,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 2,
+    "learning_rate": 0.0001,
+    "warmup_ratio": 0.05,
+    "lr_scheduler": "linear",
+    "optimizer": "adamw_torch",
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "data_seed": 42,
+    "bf16": true,
+    "gradient_checkpointing": true,
+    "gradient_checkpointing_kwargs": {
+      "use_reentrant": false
+    },
+    "completion_only_loss": true,
+    "loss_type": "chunked_nll",
+    "packing": false,
+    "padding_free": false,
+    "dataset_num_proc": 1,
+    "evaluation": false,
+    "save_intermediate_checkpoints": false,
+    "truncation": false,
+    "offload": false
+  },
+  "smoke": {
+    "max_steps": 2,
+    "examples": 4,
+    "selection": "Longest four full sequences; ties preserve frozen shared order",
+    "fresh_base_and_adapter_for_formal_training": true
+  }
+}

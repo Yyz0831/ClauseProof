@@ -1,0 +1,27 @@
+{
+  "datasets": [
+    {
+      "repo_id": "YYZ0831/clauseproof-contractnli-data",
+      "revision": "16aad22d50fe00bfb28dbef531e35df100d67828",
+      "index_sha256": "db4de00134edc8d77dc24464b259ede75ad1378772038554ecb671c45cfcf74d"
+    },
+    {
+      "repo_id": "YYZ0831/clauseproof-contractnli-experiments",
+      "revision": "ae2e7c73290e0cd51777a83b4dc4446fa19bd03e",
+      "index_sha256": "e8e4e9fd557ef08bcd4410431c1982f1d1656508542a2b39300f3af33f5add2c"
+    }
+  ],
+  "base": {
+    "repo_id": "CohereLabs/aya-expanse-8b",
+    "revision": "5062468bf9bc0c6035fd64e06274333ec127d980"
+  },
+  "adapter": {
+    "repo_id": "YYZ0831/clauseproof-aya-expanse-8b-contractnli-v2",
+    "revision": "6886febfa7c5c94dd900bd8c1b7829521c1404a3",
+    "path": "runs/train-contractnli-v2/expanse8b_contractnli_v2_4bit/adapter",
+    "files": {
+      "adapter_model.safetensors": "9ca2062d142aefbaee856056e8ead60033a5954f670e1e7d69ff33bd6b2445b0",
+      "adapter_config.json": "19d9dc29410f89eba5359e5e8a49d74db2d21f55b5ff5df0b1ad3182fa8ef6c0"
+    }
+  }
+}

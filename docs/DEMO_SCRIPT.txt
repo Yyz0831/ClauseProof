@@ -1,0 +1,23 @@
+CLAUSEPROOF — approximately three-minute demo
+
+0:00–0:20 / Problem
+“An NDA can support a statement, contradict it, or simply not say. A useful model must distinguish those cases and show the evidence, including exceptions.”
+Show Contract review. Explain this is Aya Expanse 8B with the ContractNLI v2 adapter, running on one RTX 5080.
+
+0:20–1:10 / Product
+Choose a public development sample, explicitly saying it is a previously used development document. Select statements or run all 17. Show progress and the three distinct result types.
+Open a citation. Read the actual clause and explain that highlighting indicates the model's evidence, not independently verified truth. Expand the original JSON. Show the report export.
+Optional short input: use docs/synthetic-nda.txt. State clearly that it is a hand-authored functional fixture, not evaluation or training data.
+
+1:10–2:10 / Evidence
+Open Experiments. Explain the common cohort: 18 contracts, 306 decisions, same prompt and generation settings.
+Original Aya strict label accuracy: 39.87%; v2: 82.35%. Joint exact matches: 87 to 182. Switch to Content diagnostic: original label accuracy rises to 49.35%, showing that part of the strict gain concerns formatting.
+Show a regression filter as well as an improvement. Explain why v2 was selected: v3 detects two more contradictions but false contradiction calls rise from 11 to 24. Do not present v3 as uniformly worse.
+
+2:10–2:45 / Method
+Explain 2,040 official training examples, full provided text and unchanged labels, targeted missing-information and multi-span evidence coverage, QLoRA through AlignTune. Show the saved AuditKIT fingerprints/parity report. Training and evaluation are actual uses of the two frameworks.
+
+2:45–3:00 / Scope
+“This is an inspectable local prototype for fixed English NDA statements. These are development scores, not a held-out test or legal-expert certification. The public release includes the adapter, data, outputs and source, with pinned revisions and checksum verification.”
+
+Recording status: script prepared; no video has yet been recorded. Use real live output or clearly labeled recorded output. Do not edit failures out of a claimed complete evaluation.

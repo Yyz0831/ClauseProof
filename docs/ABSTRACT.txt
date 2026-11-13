@@ -1,0 +1,11 @@
+ClauseProof: Evidence-linked NDA checking on a single consumer GPU
+
+ClauseProof helps readers inspect what an English non-disclosure agreement supports, contradicts, or leaves undecided. It checks 17 fixed ContractNLI statements and returns a structured label with source-span citations. Every finding links to an immutable document snapshot, and the user can export both a readable report and the unchanged model output.
+
+We adapted Cohere Labs' Aya Expanse 8B using QLoRA through AlignTune on a single RTX 5080. The selected v2 recipe uses 2,040 official training examples from 413 contracts, with additional missing-information examples and broader multi-span evidence coverage. It retains the original annotations, full provided text and train/development split. Training completed 1,020 optimizer steps; prompts and inference settings remain fixed across model comparisons.
+
+On a shared development cohort of 18 contracts and 306 statement decisions, strict label accuracy increases from 39.87% for original Aya to 82.35% for v2; exact label-and-evidence matches increase from 87 to 182. All v2 outputs pass the strict schema. To distinguish formatting from content, a separate diagnostic permits removal of one complete Markdown wrapper: original Aya then reaches 49.35% label accuracy, while v2 remains unchanged. Real AuditKIT evaluations reproduce the saved format, label and joint scores directly from raw outputs.
+
+The prototype includes an experiment explorer exposing all four model versions, regressions and original responses. We selected v2 over v3 because v3's higher contradiction recall came with substantially more false contradiction calls.
+
+These are development results used for model selection, not independent test accuracy or legal-expert validation. Citation overlap does not establish semantic sufficiency. ClauseProof provides inspectable evidence and explicit uncertainty; it does not determine enforceability or recommend signing a contract.

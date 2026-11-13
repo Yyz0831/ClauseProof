@@ -1,0 +1,12 @@
+# Exact core versions observed on Ubuntu / RTX 5080; Python 3.11.
+# Install torch separately with the CUDA 12.8 index (README).
+transformers==5.15.0
+trl==1.7.1
+peft==0.21.2
+bitsandbytes==0.50.2
+datasets==4.7.0
+accelerate==1.15.0
+huggingface-hub==1.33.0
+safetensors==0.8.0
+sentencepiece==0.2.2
+auditkit==1.1.3

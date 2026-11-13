@@ -1,0 +1,62 @@
+ClauseProof v0.1 原型验收
+日期：2026-11-13（Europe/London）
+
+结论
+合同核查和实验对比两个页面已完成本地浏览器及 Ubuntu RTX 5080 验收。
+主模型固定为 Aya Expanse 8B ContractNLI v2。本次没有训练新模型，也没有重新开展历史实验的 AI 内容审核。
+这是可交互的本地原型；公开发布、干净机器复现和正式参赛提交尚未完成。
+
+实际推理证据
+1. 公开 ContractNLI dev 文档 10，全部 17 项：completed，17/17 格式合格，17.88 秒。
+   模型输出为支持 8、矛盾 1、未提及 8；这不是正确率统计。
+   17 条 raw_output 与冻结的 contractnli-v3/v2 对应文档输出逐字一致。
+   保存：live-public-nda.json、live-public-nda.html。
+2. 明确标为合成演示文本的 synthetic-nda.txt，3 项：completed，1.14 秒。
+   nda-2 Contradiction，引用 s0001：原文同时含技术规格和财务预测，因此不只技术信息。
+   nda-3 Entailment，引用 s0001：原文明说 orally or in writing。
+   nda-18 NotMentioned，引用 []：完整短文没有人员招揽条款。
+   只做这一轮原文内容检查，三个判断与引用可接受。不是独立评估数据，不用于训练，不估计总体准确率。
+   保存：live-synthetic-nda.json。最后版本导入流程的回归结果另存 live-synthetic-final.json，不增加内容评委。
+3. 公开文档 12 的停止操作：cancelled，完成 2/17，1.48 秒。
+   浏览器明确显示 Stopped，保留已完成结果并允许导出，没有当作完整核查。
+   保存：live-cancelled-review.json。
+4. 真实 tokenizer 将 12,219 输入 token 的请求以 HTTP 422 拒绝，限额 7,936。
+   未截断，也未进入生成。保存：length-boundary.json。
+
+浏览器交互
+- 实际点击启动；观察真实结果，而非预填或模拟响应。
+- 改选新文档后点击旧结果引用，仍打开原 Sample NDA 01，并高亮 s0024。
+- HTML 和 JSON 由浏览器真实下载。HTML 含完整源文档、原始输出、SHA-256 和模型出处。
+- .txt 文件选择器导入成功；不支持 PDF/OCR，界面已说明。
+- 空选择禁用启动；格式失败不修复；进度中可以取消；刷新可恢复同一后台任务。
+- 模型服务重启后，旧任务不可用时清除旧任务 ID，不无限等待。
+- 实验页正常显示 306 个案例、四组指标和三类分母。内容诊断切换后，原版标签分数显示为 49.3%（一位小数），v2 不变。
+- 退步筛选显示严格口径 12/306 个案例，同时保留所有原始输出。
+- 390px 窄屏合同页与实验页均无页面水平溢出；宽屏及窄屏截图保存于 screenshots/。
+- 验收时未观察到浏览器脚本错误。
+
+自动检查
+python3 -m unittest discover -s clauseproof/tests -v：10 项通过。
+覆盖无 gold 的实时样例、Unicode 与完整正文、非法输入、原始格式失败、并发和停止、快照隔离、部分失败保留、过期清理、306 题指标重算、Host/Origin/HTTP 边界。
+node --check clauseproof/web/app.js 通过；Python 编译检查通过。
+测试替身只在单元测试中使用，实时 UI 没有模拟模型。
+
+框架执行证据
+原 v2 manifest 记录 AlignTune TRLSFTTrainer 实际完成 1,020 次更新。
+本次新增 clauseproof/audit_saved.py，使用 AuditKIT 1.1.3 对四组冻结输出确定性评分。
+四组 strict_format / strict_label / strict_joint 与原保存指标全部一致；各组 errors=0。
+保存：auditkit/{base,v1,v2,v3}-auditkit.json 与 auditkit/summary.json。
+这是原始输出重评分，不是重新推理或重复语义审核；不把 CuratorKIT 的历史依赖锁定误称为本轮合同数据已通过其策展。
+
+部署
+Ubuntu server：127.0.0.1:8791，runs/clauseproof-live-v1-final/process.json 记录精确 PID。
+主进程独立于 SSH 会话运行；本地通过已有 SSH 连接转发访问 http://127.0.0.1:8791。
+runtime-health.json 记录实际 GPU、库版本、模型 revision、adapter SHA 与 generation options。
+服务仅监听 loopback，禁止并行 GPU 作业。用户文档不写服务日志；内存结果有过期清理。
+生成服务保持可用供用户体验。未来训练前应先关闭此模型服务以释放显存。
+
+明确边界
+固定英文 NDA 命题；用户文本按非空行分段；不做 PDF、OCR、外部法条检索、任意聊天或签约决策。
+18 合同 / 306 决策是用于选模型的开发结果，不是正式独立 test；同合同问题相关。
+引用重合和 schema 合格不能代替答案语义正确性。开发案例和演示用例不能算新的泛化证据。
+公共仓库、HF 模型/数据集合、视频与提交表单仍未发布；本地材料已形成可审阅初稿。

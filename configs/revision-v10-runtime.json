@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "name": "trl_native_activation_offloading",
+  "activation_offloading": true,
+  "parameter_offload": false,
+  "preserve_parameter_dtypes": true,
+  "preserve_activation_dtypes": true,
+  "dtype_preservation_baseline": "Unmodified TRL QLoRA flow: prepared LoRA FP32, trainer converts trainable LoRA to BF16; frozen tied embedding/head and norms remain FP32.",
+  "gradient_checkpointing_kwargs": {
+    "use_reentrant": false
+  },
+  "chunked_lm_head_chunk_size": 256,
+  "native_defaults": {
+    "use_pin_memory": true,
+    "use_streams": true,
+    "min_tensor_size_bytes": 1024,
+    "max_fwd_stash_size": 5
+  },
+  "original_trainer_sha256": "8d33c67d50b337185a34ec75836e868d8bd58faf3d48ee98fc0205ce7be35392",
+  "original_data_protocol_sha256": "ec61b7f357dc05929f24e7942737e05632476ed2e03cfbd86fcf61a53f188609",
+  "reason": "Reuse the validated v8 activation-offload runtime without dtype or GPU math changes for 1722 official training questions and revised targets."
+}
